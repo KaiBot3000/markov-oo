@@ -35,13 +35,13 @@ class SimpleMarkovGenerator(object):
             # or we could say "chains.setdefault(key, []).append(value)"
         return chains
 
-    def make_text(self, chains):
+    def make_text(self, chains): #pass in max_length
         """Takes dictionary of markov chains; returns random text."""
 
         key = choice(chains.keys())
         words = [key[0], key[1]]
         
-        while key in chains:
+        while key in chains # and words is < max_characters:
             # Keep looping until we have a key that isn't in the chains
             # (which would mean it was the end of our original text)
             #
@@ -50,6 +50,7 @@ class SimpleMarkovGenerator(object):
 
             # print "Looping"
             word = choice(chains[key])
+            # if length words + word > max_length characters, break
             words.append(word)
             key = (key[1], word)
 
